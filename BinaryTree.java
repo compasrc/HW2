@@ -1,6 +1,6 @@
 
 /*
- * *** PLACE YOUR NAME / SECTION HERE ***
+ * *** RYAN COMPAS / COMP 272-001 ***
  *
  * Homework # 2 (Programming Assignment). This Java class defines a few basic
  * manipulation operations of a binary trees.
@@ -61,7 +61,7 @@ public class BinaryTree {
     /* 
      * Class Node
      *
-     * The node object definition for each node of the bin ary tree.
+     * The node object definition for each node of the binary tree.
      */
 
     static class Node {
@@ -109,7 +109,7 @@ public class BinaryTree {
      *
      * The method will insert a node into the binary tree containing the value
      * passed in as a parameter, 'data'. This insert routine maintains the
-     * form of the binary tree which maintains teh property of a 'complete binary'
+     * form of the binary tree which maintains the property of a 'complete binary'
      * tree.
      *
      * The property basically implies that for every node in the tree:
@@ -153,7 +153,7 @@ public class BinaryTree {
                 queue.remove();
             }
 
-            // Enqueue the left and right children of teh current node
+            // Enqueue the left and right children of the current node
             if (front.left != null)
                 queue.add(front.left);
 
@@ -213,7 +213,7 @@ public class BinaryTree {
      *
      * This method will traverse the tree using a depth first search
      * approach, and for each node found with the value of 'oldVal',
-     * replace it (update teh value in place), with the provided 'newVal'.
+     * replace it (update the value in place), with the provided 'newVal'.
      *
      * Depth first search of the tree is based on recursion. This will result
      * in very few lines of code.
@@ -222,9 +222,19 @@ public class BinaryTree {
 
     private void replaceValueHelper(Node node, int oldVal, int newVal) {
 
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
+        // handles if current node is null
+        if (node == null){
+            return;
+        }
 
+        // if instance of oldVal is found, replace it with newVal
+        if (node.data == oldVal){
+            node.data = newVal;
+        }
+
+        // recursively call on children of the current node
+        replaceValueHelper(node.left, oldVal, newVal);
+        replaceValueHelper(node.right, oldVal, newVal);
     }
 
 
@@ -244,10 +254,25 @@ public class BinaryTree {
 
     private int findMinHelper(Node node) {
 
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
+        // return if tree is empty
+        if (node == null) {
+            return Integer.MAX_VALUE;
+        }
 
-        return Integer.MAX_VALUE;
+        int minVal = node.data;
+
+        // depth first traversal to get the left and right minimums
+        int leftMin = findMinHelper(node.left);
+        int rightMin = findMinHelper(node.right);
+
+        // side with the lowest minimum is assigned to minVal
+        if (leftMin < minVal){
+            minVal = leftMin;
+        }
+        if (rightMin < minVal){
+            minVal = rightMin;
+        }
+        return minVal;
     }
 
 
