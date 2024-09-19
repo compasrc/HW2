@@ -291,13 +291,21 @@ public class BinaryTree {
 
     private int nodesGTHelper(Node node, int val) {
 
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
+        if (node == null){
+            return 0;
+        }
 
-        // return -1; // RECALL, IF TREE IS EMPTY, RETURN -1
+        int count = 0;
 
 
-        return -1;
+        if (node.data > val){
+            count++;
+        }
+
+        count += nodesGTHelper(node.left, val);
+        count += nodesGTHelper(node.right, val);
+
+        return count;
     }
 
 
